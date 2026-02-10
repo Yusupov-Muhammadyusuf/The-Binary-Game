@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Binary Game</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <link rel="shortcut icon" href="src/assets/photos/favicon.png" type="image/x-icon">
+    <link rel="stylesheet" href="src/css/game.css">
+</head>
+
+<body>
+
+    <!-- The Binary -->
+    <div class="position-relative overflow-hidden">
+        <div class="circle_left position-absolute"></div>
+        <div class="circle_right position-absolute"></div>
+
+        <div class="container d-flex align-items-center justify-content-center flex-column min-vh-100">
+            <h1 class="text-dark fw-bold mb-5">
+                <a href="binary.html" class="text-decoration-none text-dark">
+                    The Binary Game
+                </a>
+            </h1>
+
+            <div class="bigBox d-flex overflow-auto gap-3 mb-5 p-3">
+                <div class="binary_box d-flex align-items-center flex-column">
+                    <i class="bi bi-chevron-up text-secondary fs-4"></i>
+                    <div class="digit_circle d-flex justify-content-center align-items-center rounded-5">0</div>
+                    <i class="bi bi-chevron-down text-secondary fs-4"></i>
+                </div>
+
+                <div class="binary_box d-flex flex-column align-items-center">
+                    <i class="bi bi-chevron-up text-secondary fs-4"></i>
+                    <div class="digit_circle d-flex justify-content-center align-items-center rounded-5">0</div>
+                    <i class="bi bi-chevron-down text-secondary fs-4"></i>
+                </div>
+
+                <div class="binary_box d-flex flex-column align-items-center">
+                    <i class="bi bi-chevron-up text-secondary fs-4"></i>
+                    <div class="digit_circle d-flex justify-content-center align-items-center rounded-5">0</div>
+                    <i class="bi bi-chevron-down text-secondary fs-4"></i>
+                </div>
+
+                <div class="binary_box d-flex flex-column align-items-center">
+                    <i class="bi bi-chevron-up text-secondary fs-4"></i>
+                    <div class="digit_circle d-flex justify-content-center align-items-center rounded-5">0</div>
+                    <i class="bi bi-chevron-down text-secondary fs-4"></i>
+                </div>
+
+                <div class="binary_box d-flex flex-column align-items-center">
+                    <i class="bi bi-chevron-up text-secondary fs-4"></i>
+                    <div class="digit_circle d-flex justify-content-center align-items-center rounded-5">0</div>
+                    <i class="bi bi-chevron-down text-secondary fs-4"></i>
+                </div>
+
+                <div class="binary_box d-flex flex-column align-items-center">
+                    <i class="bi bi-chevron-up text-secondary fs-4"></i>
+                    <div class="digit_circle d-flex justify-content-center align-items-center rounded-5">0</div>
+                    <i class="bi bi-chevron-down text-secondary fs-4"></i>
+                </div>
+
+                <div class="binary_box d-flex flex-column align-items-center">
+                    <i class="bi bi-chevron-up text-secondary fs-4"></i>
+                    <div class="digit_circle d-flex justify-content-center align-items-center rounded-5">0</div>
+                    <i class="bi bi-chevron-down text-secondary fs-4"></i>
+                </div>
+
+                <div class="binary_box d-flex flex-column align-items-center">
+                    <i class="bi bi-chevron-up text-secondary fs-4"></i>
+                    <div class="digit_circle d-flex justify-content-center align-items-center rounded-5">0</div>
+                    <i class="bi bi-chevron-down text-secondary fs-4"></i>
+                </div>
+            </div>
+
+            <h2 id="target_number" class="text-secondary mt-3"></h2>
+            <h3 id="current_number" class="text-primary"></h3>
+
+            <div class="d-flex mt-4">
+                <div class="mb-4">
+                    <button id="btn_start" class="btn btn-success btn-lg px-5 shadow-sm">
+                        <i class="bi bi-play-fill"></i> 
+                        Start Game
+                    </button>
+                    <button id="btn_reset" class="btn btn-outline-secondary btn-lg px-4 shadow-sm d-none">
+                        <i class="bi bi-arrow-clockwise"></i> 
+                        Reset
+                    </button>
+                </div>
+                
+                <!-- Button trigger modal -->
+                <button 
+                    type="button" 
+                    class="btn btn-danger ms-2"
+                    style="height: 48px;"
+                    data-bs-toggle="modal" 
+                    data-bs-target="#exampleModal"
+                >
+                    <i class="bi bi-question"></i>
+                </button>
+    
+                <!-- Description modal -->
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="exampleModalLabel">How to play The Binary game?</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <p>
+                                    <span class="text-dark fw-bold">Goal:</span> 
+                                    You are given a random number and you have to convert it to binary.
+                                </p>
+                                <p>
+                                    <span class="text-dark fw-bold">Play:</span> 
+                                    Select the right bits to make the number: [Target].
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="border rounded bg-white p-3">
+                <h5><i class="bi bi-robot"></i> Bot Progress</h5>
+                <div class="progress" style="height: 25px;">
+                    <div id="bot_progress" class="progress-bar bg-success" role="progressbar" style="width: 0%;">0%</div>
+                </div>
+                <small id="bot_status" class="text-muted">Bot is thinking...</small>
+            </div>
+
+        </div> 
+    </div>
+
+    <!-- WinModal -->
+    <div class="modal fade" id="winModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content text-center p-4">
+                <div class="modal-body">
+                    <i class="bi bi-trophy text-warning" style="font-size: 4rem;"></i>
+                    <h2 class="fw-bold mt-3">Victory!</h2>
+                    <p class="text-secondary">You found the binary number</p>
+                    <button type="button" id="btn_play_again" class="btn btn-primary w-100" data-bs-dismiss="modal">
+                        Play again
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- botWinModal -->
+    <div class="modal fade" id="botWinModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content text-center p-4">
+                <div class="modal-body">
+                    <i class="bi bi-robot text-danger" style="font-size: 4rem;"></i>
+                    <h2 class="fw-bold mt-3">Bot Won! 🤖</h2>
+                    <hr>
+                    <div class="bg-light p-3 rounded mb-3">
+                        <p class="mb-1 text-muted">Correct answer:</p>
+                        <h3 id="correct_binary_value" class="fw-bold text-dark" style="letter-spacing: 5px;"></h3>
+                    </div>
+                    <button type="button" id="btn_reload" class="btn btn-danger w-100 py-2" data-bs-dismiss="modal" onclick="location.reload()">Play again</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script type="module" src="dist/gameBot.js"></script>
+
+</body>
+
+</html>
