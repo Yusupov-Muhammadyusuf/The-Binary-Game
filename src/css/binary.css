@@ -1,0 +1,60 @@
+/* Ubuntu font */
+@font-face {
+    font-family: 'Ubuntu';
+    src: url('./assets/fonts/Ubuntu-Regular.eot'),
+        url('./assets/fonts/Ubuntu-Regular.woff2') format('woff2'),
+        url('./assets/fonts/Ubuntu-Regular.woff') format('woff'),
+        url('./assets/fonts/Ubuntu-Regular.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+body {
+    font-family: 'Ubuntu';
+    background-color: rgba(0, 0, 0, 0.043);
+}
+
+a {
+    width: 45vh;
+}
+
+img {
+    width: 50px;
+}
+
+/* Light blue circle in the top left */
+.circle_left {
+    width: 600px;
+    height: 600px;
+    background-color: #4da3ff;
+    border-radius: 50%;
+    top: -150px;
+    left: -150px;
+    z-index: -1;
+    filter: blur(30px);
+}
+
+/* Dark blue circle in the bottom right */
+.circle_right {
+    width: 600px;
+    height: 600px;
+    background-color: #1a237e;
+    border-radius: 50%;
+    bottom: -200px;
+    right: -200px;
+    z-index: -1;
+    opacity: 0.8;
+    filter: blur(10px);
+}
+
+/* Some shadow and effect for buttons */
+.btn-dark {
+    max-width: 400px;
+    transition: transform 0.2s, background-color 0.2s;
+}
+
+.btn-dark:hover {
+    transform: scale(1.02);
+    background-color: #252525;
+}

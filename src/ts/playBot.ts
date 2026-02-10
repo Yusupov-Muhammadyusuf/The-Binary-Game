@@ -1,0 +1,129 @@
+declare var bootstrap: any;
+
+const binaryBoxes = document.querySelectorAll('.binary_box') as NodeListOf<HTMLElement>;
+const targetDisplay = document.getElementById('target_number') as HTMLElement;
+const currentDisplay = document.getElementById('current_number') as HTMLElement;
+const botProgressBar = document.getElementById('bot_progress') as HTMLElement;
+const startBtn = document.getElementById('btn_start') as HTMLButtonElement;
+const resetBtn = document.getElementById('btn_reset') as HTMLButtonElement;
+
+let targetValue: number = 0;
+let currentValue: number = 0;
+let botInterval: any;
+let isGameOver: boolean = true; // O'yin boshlanmaguncha true turadi
+
+function setupGame(): void {
+    targetValue = Math.floor(Math.random() * 255) + 1;
+    targetDisplay.innerHTML = `Target: ${targetValue}`;
+    currentDisplay.innerText = `Your Sum: 0`;
+    updateBotUI(0);
+
+    const digits = document.querySelectorAll('.digit_circle') as NodeListOf<HTMLElement>;
+    digits.forEach(d => {
+        d.innerText = "0";
+        d.classList.remove('bg-primary', 'text-white');
+    });
+}
+
+function startGame(): void {
+    isGameOver = false;
+    startBtn.classList.add('d-none');
+    resetBtn.classList.remove('d-none');
+
+
+    startBot(targetValue, 1500);
+}
+
+binaryBoxes.forEach((box) => {
+    const upBtn = box.querySelector('.bi-chevron-up') as HTMLElement;
+    const downBtn = box.querySelector('.bi-chevron-down') as HTMLElement;
+    const digitBlock = box.querySelector('.digit_circle') as HTMLElement;
+
+    const action = () => {
+        if (!isGameOver) {
+            toggleBit(digitBlock);
+        } else {
+            alert("Please press 'Start Game' first!");
+        }
+    };
+
+    upBtn.onclick = action;
+    downBtn.onclick = action;
+});
+
+function toggleBit(element: HTMLElement): void {
+    const isZero = element.innerHTML === "0";
+    element.innerText = isZero ? "1" : "0";
+    element.classList.toggle('bg-primary', !isZero === false);
+    element.classList.toggle('text-white', !isZero === false);
+    updateTotal();
+}
+
+function updateTotal(): void {
+    let sum = 0;
+    const digits = document.querySelectorAll('.digit_circle') as NodeListOf<HTMLElement>;
+    digits.forEach((digit, index) => {
+        if (digit.innerText === "1") {
+            sum += Math.pow(2, digits.length - 1 - index);
+        }
+    });
+    currentValue = sum;
+    currentDisplay.innerText = `Your Sum: ${currentValue}`;
+    if (currentValue === targetValue) endGame("player");
+}
+
+function startBot(target: number, speed: number) {
+    let currentBitIndex = 0;
+    clearInterval(botInterval);
+
+    botInterval = setInterval(() => {
+        if (isGameOver) return clearInterval(botInterval);
+
+        currentBitIndex++;
+        const progress = (currentBitIndex / 8) * 100;
+        updateBotUI(progress);
+
+        if (currentBitIndex === 8) {
+            clearInterval(botInterval);
+            setTimeout(() => {
+                if (!isGameOver) endGame("bot");
+            }, 100);
+        }
+    }, speed);
+}
+
+function updateBotUI(percent: number) {
+    if (botProgressBar) {
+        botProgressBar.style.width = percent + "%";
+        botProgressBar.innerText = Math.floor(percent) + "%";
+    }
+}
+
+function endGame(winner: string) {
+    isGameOver = true;
+    clearInterval(botInterval);
+
+    if (winner === "player") {
+        const winModal = new bootstrap.Modal(document.getElementById('winModal'));
+        winModal.show();
+    } else {
+        // Bot yutgan holat
+        const botModalEl = document.getElementById('botWinModal');
+        const correctBinaryDisplay = document.getElementById('correct_binary_value');
+
+        if (botModalEl && correctBinaryDisplay) {
+            const correctBinary = targetValue.toString(2).padStart(8, '0');
+            correctBinaryDisplay.innerText = correctBinary;
+
+            const botWinModal = new bootstrap.Modal(botModalEl);
+            botWinModal.show();
+        }
+    }
+}
+
+startBtn.addEventListener('click', startGame);
+resetBtn.addEventListener('click', () => {
+    location.reload();
+});
+
+window.onload = setupGame;
