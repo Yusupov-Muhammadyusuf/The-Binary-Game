@@ -6,7 +6,7 @@ I wanted to create a fun and interactive way to learn binary numbers. Many peopl
 # What it does
 The Binary Game is a web-based puzzle game where players must convert decimal numbers into binary by toggling switches (0s and 1s). The goal is to match the target decimal number before time runs out. It also features a "Bot Mode" where you can test your speed against a computer opponent.
 
-![TheBinaryGameVideo](https://www.youtube.com/watch?v=RvFxw7yIY08)
+[![TheBinaryGameVideo](https://img.youtube.com/vi/RvFxw7yIY08/maxresdefault.jpg)](https://www.youtube.com/watch?v=RvFxw7yIY08)
 
 # How I built it
 The project was built using modern web technologies: HTML5 & CSS3 and Bootstrap for the structure and responsive design. TypeScript/JavaScript for the core game logic and binary calculation engine. Gemini: I took a lot of ideas from Gemini AI for this game's design
